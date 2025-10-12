@@ -2,7 +2,6 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import { useState } from 'react'
 import { Button } from './components/ui/button'
 import Particles from './components/Particles'
-import { Clock3, Star } from 'lucide-react'
 
 function App() {
   const { scrollYProgress } = useScroll()
