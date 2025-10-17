@@ -88,8 +88,8 @@ function App() {
         </div>
       </motion.nav>
 
-      <section id="inicio" className='min-h-screen w-full bg-white font-[Roboto_Mono] pt-8'>
-        <div className='flex flex-col h-screen w-full p-4 md:p-10'>
+      <section id="inicio" className='min-h-screen w-full bg-white font-[Roboto_Mono] pt-20 md:pt-8'>
+        <div className='flex flex-col min-h-screen w-full p-4 md:p-10'>
           <div className='w-full flex flex-col md:flex-row'>
             <div className='flex flex-col gap-2'>
               <motion.h1
