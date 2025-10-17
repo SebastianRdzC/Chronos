@@ -15,7 +15,7 @@ function App() {
 
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 360])
 
-  // Variantes de animación sutiles
+  
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
@@ -38,7 +38,7 @@ function App() {
 
   return (
     <>
-      {/* Nav con fade in suave */}
+      
       <motion.nav
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ function App() {
         </div>
       </motion.nav>
 
-      {/* Sección Hero con animaciones escalonadas */}
+      
       <section id="inicio" className='min-h-screen w-full bg-white font-[Roboto_Mono] pt-8'>
         <div className='flex flex-col h-screen w-full p-10'>
           <div className='w-full flex'>
@@ -157,10 +157,10 @@ function App() {
         </div>
       </section>
 
-      {/* Sección Acerca de */}
+      
       <section id="acerca-de" className='min-h-screen w-full bg-white font-[Roboto_Mono] flex flex-col items-center'>
         <div className='w-full flex mt-12'>
-          {/* Columna izquierda */}
+          
           <div className='flex-1'>
             <div className='flex flex-col gap-8 p-10'>
               <motion.h2
@@ -195,7 +195,7 @@ function App() {
             </div>
           </div>
 
-          {/* Columna derecha */}
+          
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -209,7 +209,7 @@ function App() {
           </motion.div>
         </div>
 
-        {/* Cards de características con stagger */}
+        
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -269,7 +269,7 @@ function App() {
         </motion.div>
       </section>
 
-      {/* Sección Pricing */}
+      
       <section id="pricing" className='min-h-screen w-full bg-white font-[Roboto_Mono] flex items-center justify-center'>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -282,7 +282,7 @@ function App() {
         </motion.h2>
       </section>
 
-      {/* Sección Contact */}
+      
       <section id="contact" className='min-h-screen w-full bg-black font-[Roboto_Mono] text-white flex items-center justify-center'>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
