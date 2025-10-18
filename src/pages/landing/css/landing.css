@@ -1,3 +1,138 @@
-.will-change{
+/* Animaciones de entrada iniciales (hero) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Clases para animaciones automáticas en carga */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+/* Animaciones activadas por scroll */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger effect para elementos con delay */
+.animate-on-scroll[style*="animation-delay"] {
+    transition-delay: var(--delay, 0s);
+}
+
+/* Optimizaciones de performance */
+.will-change-transform {
     will-change: transform;
+}
+
+.gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Smooth scroll en navegadores que lo soporten */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Deshabilitar animaciones si el usuario prefiere movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .animate-on-scroll {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .fade-in-up,
+    .fade-in {
+        opacity: 1;
+        animation: none;
+    }
+}
+
+/* Mejora de performance en mobile */
+@media (max-width: 768px) {
+    .animate-on-scroll {
+        transition-duration: 0.4s;
+    }
+    
+    .fade-in-up,
+    .fade-in {
+        animation-duration: 0.4s;
+    }
+}
+
+/* Transiciones suaves para hover states */
+button,
+.cursor-pointer {
+    transition: transform 0.2s ease-out;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Optimización para el backdrop blur en hero button */
+.backdrop-blur-lg {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Fix para el nav indicator animation */
+.nav-link-indicator {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Custom scrollbar (opcional) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

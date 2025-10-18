@@ -1,48 +1,26 @@
 import { useEffect, useRef, useCallback, memo } from 'react'
-import { MotionValue } from 'framer-motion'
 import './css/landing.css'
 
 interface NavbarProps {
     sections: string[]
     activeIndex: number
-    scrollYProgress: MotionValue<number>
+    scrollProgress: number
 }
 
-// Memo para evitar re-renders innecesarios
-const Navbar = memo(function Navbar({ sections, activeIndex, scrollYProgress }: NavbarProps) {
+const Navbar = memo(function Navbar({ sections, activeIndex, scrollProgress }: NavbarProps) {
     const lineRef = useRef<HTMLDivElement>(null)
-
+    
     const scrollToSection = useCallback((id: string) => {
         const element = document.getElementById(id.toLowerCase())
         element?.scrollIntoView({ behavior: "smooth", block: "start" })
     }, [])
 
     useEffect(() => {
-        // Throttle para reducir actualizaciones
-        let rafId: number | null = null
-
-        const updateRotation = (latest: number) => {
-            if (rafId !== null) return
-
-            rafId = requestAnimationFrame(() => {
-                const rotation = latest * 360
-                if (lineRef.current) {
-                    // Uso willChange para mejor performance
-                    lineRef.current.style.transform = `translate(-50%, -100%) rotate(${rotation}deg)`
-                }
-                rafId = null
-            })
+        if (lineRef.current) {
+            const rotation = scrollProgress * 360
+            lineRef.current.style.transform = `translate(-50%, -100%) rotate(${rotation}deg)`
         }
-
-        const unsubscribe = scrollYProgress.on('change', updateRotation)
-
-        return () => {
-            unsubscribe()
-            if (rafId !== null) {
-                cancelAnimationFrame(rafId)
-            }
-        }
-    }, [scrollYProgress])
+    }, [scrollProgress])
 
     return (
         <nav className='fixed top-0 w-full h-16 bg-white z-50 px-4 md:px-10 py-5 border-b border-black/5'>
@@ -62,19 +40,22 @@ const Navbar = memo(function Navbar({ sections, activeIndex, scrollYProgress }: 
                         Chronos
                     </span>
                 </div>
-
+                
                 <ul className='hidden md:flex gap-8'>
                     {sections.map((section, i) => (
                         <li
                             key={section}
-                            className={`relative cursor-pointer transition-all duration-200 hover:scale-105 ${i === activeIndex ? "text-[#3f4150] font-semibold" : "text-[#666]"
-                                }`}
+                            className={`relative cursor-pointer transition-all duration-200 hover:scale-105 ${
+                                i === activeIndex ? "text-[#3f4150] font-semibold" : "text-[#666]"
+                            }`}
                             onClick={() => scrollToSection(section)}
                         >
                             {section}
                             <div
-                                className={`absolute left-0 right-0 -bottom-1 h-[3px] rounded-full transition-all duration-300 ${i === activeIndex ? "bg-[#3f4150] opacity-100" : "opacity-0"
-                                    }`}
+                                className={`absolute left-0 right-0 -bottom-1 h-[3px] rounded-full transition-all duration-300 ${
+                                    i === activeIndex ? "bg-[#3f4150] opacity-100 scale-x-100" : "opacity-0 scale-x-0"
+                                }`}
+                                style={{ transformOrigin: 'center' }}
                             />
                         </li>
                     ))}
